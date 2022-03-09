@@ -1,0 +1,30 @@
+data: ENC[AES256_GCM,data:iTB2f8CBMrv9naUIAIE/IT+d0Q/WaIRj6VAbpy4emONDPL84804okV5pj8eQ1fKostVz8fWbch/HTvPat4EKJbvKYSSxlKoohwogcdIrU1KdQzAXtGi7WG3b4DNwoLZEtEJmA1OS/RBdrEDvCxhsfs1kXqWL64zyvpd5h6diRo0VuwJ9DfsoTBQqk4JDSz1WYsrHwIg39W50RJoM3hJWokM0dJ5wCIeU7Uwo8gDIrSRAWBqV4w/tcXrKgu+XURVPQ3cT40QJ1e+inGYlCud9FZ9u7IYXSp13EqDBx1OhmzXxtm2c5ohcnkGyPZG9K5Qq7V4pJBMFjnXVqtEyjWPVAIdla6NRVbWL6hTsjx0uRg8pi3jQmuiOwUiUD1chagfzoG8o+n0nB0xtJFi6QiSoza0CHNA+krsU7aPMjboaIIlTYm5vp6MS6d/xMV5jSQ1Lo6kUmVSbWg==,iv:t/ySHC7NXpnlgqb/1JL2/97h7+HPcnjKs74oOUCIlAU=,tag:rGSOLM5rcUfC9koj/enf0g==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2022-03-09T15:59:51Z"
+    mac: ENC[AES256_GCM,data:Bl3nBEaAYiTeL7ILGyp3OxIUlAuPi7Ampvxc2CVBIJfGbgopB3k3+eUkZqSrgC4Xq3wNRR2wz7jza2T50fow37Rn8JRSdr9BZ2oWZn/ckcEj5pdJyas60NFkwLRUzzuhBcKNkYde+THV9druLt9vnhOgNKQPtum8SNLUyDOZbKU=,iv:m3qU0c4QNOmw6gFITDWr6L49yKblCpA2UJh4f3CuRuk=,tag:PTNMssDBU2J5E3TQpuNUFg==,type:str]
+    pgp:
+        - created_at: "2022-03-09T15:59:50Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQGMAwLox6eje8MdAQv+Nna4TA/tlNSrh3HvKIT+3OhvzuxcjTvNl+dWaOGQUQDL
+            VeN20PlR0PjVlDoy3391IYLUVwwYZTKi8mqWUj9lqahhu3WbNu+0bRg8Xfe6H+Os
+            NvfaVER5evi6VE5bMLgaCJ9SAR2uYQppZdSZUKXvBp45CCF0plwQ3qEWvj5U85JC
+            QwEzY9rKYNtB1s+YBRsn1vRaooqjLM1E1/UX5BllSLPD1PzhvdSUgck4/A+qpuAg
+            9ZAs/bPR/dx8zqR3vuosiG2EsBJLozOeksm7z9YYRG6WB9anisjhPPjntibbjc6m
+            EIXva1fkR7DdaYSWNIwMWlJQ3S8sf1pPbNN63GkKheBhqENIMDx1WCrRJwWLPjJM
+            auoxq8HbhZo+1rs5BwXJ+5J9ubkBpWr+O7vi+lGoGuJza/0W5Yb32iJmjKbHd6Jz
+            UsVCG2spzUR11YlGFzNEiyIr7Hsvyb7nwEiIrO8Dyiuggbq5QGs/sRpto/45+Bcd
+            VyPfhJZqcm81bsK8Sfa91GgBCQIQWWTPGcRi4WtRQYWqEsn2ef0Jg9ykew5cEziB
+            IaLR2CZWHN517Cjl2dY/2QwVLCjlUP4p3DT0GcavqJC0UKHA0sdpj03Z4B+i+XCR
+            G/HH6amcetEEVgWy+UKkbRxokCo0gc8QdA==
+            =AVK9
+            -----END PGP MESSAGE-----
+          fp: 92B22DC1B2DBD5A20D5123E6DFD9DFE73F17E5BD
+    encrypted_regex: ^(data|stringData|password|.*(PASSWORD|TOKEN)|tlsCert|w3sre.*|clarity|license.*|.*(secret|access).*key|key)$
+    version: 3.7.1

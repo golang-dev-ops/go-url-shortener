@@ -1,0 +1,13 @@
+.git
+.history
+.aliases
+LICENSE
+README.md
+sshdaemon
+#monorepo  #need this to build docker image
+terraform*
+.terraform*
+**/.terraform*
+*.tar.gz
+*.tar
+*.vdi*

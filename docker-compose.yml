@@ -1,0 +1,126 @@
+version: '3.8'
+## Main Image Name and Dockerfile
+x-dockerfile: &dockerfile
+  deploy/docker/Dockerfile
+x-image: &image
+  go-url-shortener:${TAG:-0.1}
+x-appArgs: &appArgs
+  #DIST: debian:bullseye-slim
+  DIST: alpine:edge
+  PORT_EXPOSE: 8000
+  APP_NAME: go-url-shortener
+  ENTRYPOINT: deploy/entrypoint.sh
+  SOPS_VERSION: 3.7.1
+x-appVolumes: &appVolumes
+  - .:./
+services:
+  ##
+  ## Go App
+  ##
+  go-app:
+    hostname: ${APP_NAME}
+    image:    *image
+    build:
+      context: ./
+      dockerfile: *dockerfile
+      args:
+        *appArgs
+    restart: always
+    environment:
+      - HOME=/root
+    entrypoint: sh -c '/app/entrypoint.sh'
+    #volumes: *appVolumes
+    # To avoid issue with named volume and mounting time
+    privileged:   true
+    #cap_add:
+    #  - SYS_ADMIN
+    #security_opt:
+    #  - seccomp:unconfined
+    #  - label:disable
+    tmpfs:
+      - /run
+      - /run/lock
+    depends_on:
+      - redis
+
+  ## Databases
+  ## Redis
+  redis:
+    image: redis:alpine
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning
+    privileged: true
+    ## https://docs.docker.com/compose/compose-file/compose-file-v3/#sysctls
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      #- vm.overcommit_memory=1 ## specgen: sysctl 'vm.overcommit_memory' is not allowed
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+  ## redisCommander UI
+  redisCommander:
+    image: rediscommander/redis-commander:latest
+    #command: --redis-host redis
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=root
+      - HTTP_PASSWORD=qwerty
+    ports:
+      - 8081:8081
+    ## https://docs.docker.com/compose/compose-file/compose-file-v3/#links
+    #links:
+    # - redis:redis
+    depends_on:
+      - redis
+
+  ## MySQL
+  #mysql:
+  #  command: --default-authentication-plugin=mysql_native_password
+  #  image: mysql
+  #  restart: always
+  #  environment:
+  #    MYSQL_DATABASE: 'db'
+  #    MYSQL_USER: 'user'
+  #    MYSQL_PASSWORD: 'password'
+  #    MYSQL_ROOT_PASSWORD: 'password'
+  #  ports:
+  #    - 3306:3306
+  #  volumes:
+  #    - mysql_data:/var/lib/mysql
+  #    - ./test/data:/docker-entrypoint-initdb.d
+  #  privileged:   true
+  #  cap_add:
+  #    - SYS_ADMIN
+
+  #adminer:
+  #  image: adminer:latest
+  #  environment:
+  #    ADMINER_DEFAULT_SERVER: mysql
+  #  ports:
+  #    - 8082:8082
+
+  ## MongoDB -- disabled
+  #mongo:
+  #  image: mongo:latest
+  #  # environment:
+  #    # MONGO_INITDB_ROOT_USERNAME: root
+  #    # MONGO_INITDB_ROOT_PASSWORD: rootpassword
+  #  ports:
+  #    - 27017:27017
+  #  volumes:
+  #    - mongo_data:/data/db
+  #mongo-express:
+  #    image: mongo-express
+  #    environment:
+  #        - ME_CONFIG_MONGODB_SERVER=mongo
+  #        - ME_CONFIG_MONGODB_PORT=27017
+  #    depends_on:
+  #        - mongo
+  #    ports:
+  #      - 8083:8083
+
+volumes:
+  redis_data:
+  #mongo_data:
+  #mysql_data:
